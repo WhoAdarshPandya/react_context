@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://whoadarshpandya.github.io/react_context",
   "scripts": {
     "start": "set PORT=4400 && react-scripts start",
     "build": "react-scripts build"
