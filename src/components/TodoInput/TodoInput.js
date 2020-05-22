@@ -1,12 +1,12 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   TextField,
   Button,
   createMuiTheme,
-  MuiThemeProvider,
+  MuiThemeProvider
 } from "@material-ui/core";
 import { v4 as uuid } from "uuid";
-import {TodoListContext} from '../../providerContext/TodoListContext'
+import { TodoListContext } from "../../providerContext/TodoListContext";
 
 const theme = createMuiTheme({
   palette: {
@@ -18,28 +18,26 @@ const theme = createMuiTheme({
 
 export default function TodoInput() {
   const [text, setText] = useState("");
-  const [todos,setTodos] = useContext(TodoListContext)
+  const [todos, setTodos] = useContext(TodoListContext);
   const changeText = (e) => {
     setText(e.target.value);
   };
   const addTodo = () => {
-    if(text !== "")
-    {
-        let new_todo = {
-            title:text,
-            id:uuid(),
-            completed:false
-        }
-        setTodos(prev => [...prev,new_todo])
-        setText("")
+    if (text !== "") {
+      let new_todo = {
+        title: text,
+        id: uuid(),
+        completed: false,
+      };
+      setTodos((prev) => [...prev, new_todo]);
+      setText("");
     }
   };
-  const Keyp = e => {
-      if(e.key === "Enter")
-      {
-          addTodo()
-      }
-  }
+  const Keyp = (e) => {
+    if (e.key === "Enter") {
+      addTodo();
+    }
+  };
   return (
     <MuiThemeProvider theme={theme}>
       <div style={{ width: "50%", margin: "auto", textAlign: "center" }}>
@@ -48,7 +46,9 @@ export default function TodoInput() {
           color="primary"
           label="Enter Todo"
           value={text}
-          onKeyPress={(e) => {Keyp(e)}}
+          onKeyPress={(e) => {
+            Keyp(e);
+          }}
           onChange={(e) => {
             changeText(e);
           }}
