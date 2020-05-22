@@ -1,29 +1,46 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TodoListContext } from "../../providerContext/TodoListContext";
 import {
   Paper,
-  Zoom,
+  Slide,
   ListItem,
   ListItemText,
   ListItemIcon,
   Checkbox,
   IconButton,
-  ListItemSecondaryAction
+  ListItemSecondaryAction,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 export default function Todos({ todo }) {
+  const [todos, setTodos] = useContext(TodoListContext);
   const checkTodo = (id, compl) => {
-    alert(id);
+    setTodos((prevTodos) => [
+      ...prevTodos.map((item) => {
+        if (item.id === id) {
+          item.completed = !compl;
+        }
+        return item;
+      }),
+    ]);
   };
-  const deleteTodo = id => {
-    alert(id);
-  }
+  const deleteTodo = (id) => {
+    setTodos((prevTodos) => [...prevTodos.filter((item) => item.id !== id)]);
+  };
   return (
-    <Zoom in={true}>
+    <Slide direction="right" in={true}>
       <Paper>
-        <ListItem button style={{ marginTop: "10px" }}>
+        <ListItem
+          button
+          style={
+            todo.completed
+              ? { marginTop: "10px", background: "#dcdde1" }
+              : { marginTop: "10px" }
+          }
+        >
           <ListItemIcon>
             <Checkbox
+              color="primary"
               onChange={() => {
                 checkTodo(todo.id, todo.completed);
               }}
@@ -31,7 +48,7 @@ export default function Todos({ todo }) {
               checked={todo.completed}
             />
           </ListItemIcon>
-          <ListItemText primary={todo.title} />
+          <ListItemText style={todo.completed?{color:'gray'}:{}} primary={todo.title} />
           <ListItemSecondaryAction>
             <IconButton
               edge="end"
@@ -44,6 +61,6 @@ export default function Todos({ todo }) {
           </ListItemSecondaryAction>
         </ListItem>
       </Paper>
-    </Zoom>
+    </Slide>
   );
 }
