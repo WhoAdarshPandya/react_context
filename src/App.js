@@ -1,9 +1,34 @@
-import React from 'react'
+import React from "react";
+import TodoInput from "./components/TodoInput/TodoInput";
+import TodoList from "./components/TodoList/TodoList";
+import {
+  Typography,
+  createMuiTheme,
+  MuiThemeProvider,
+} from "@material-ui/core";
+// !context provider
+import { TodoListProvider } from "./providerContext/TodoListContext";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#1976d2",
+    },
+  },
+});
 
 export default function App() {
-    return (
+  return (
+    <TodoListProvider>
+      <MuiThemeProvider theme={theme}>
         <div>
-            <p>hello world</p>
+          <Typography variant="h2" color="primary" align="center">
+            To Do List
+          </Typography>
+          <TodoInput />
+          <TodoList />
         </div>
-    )
+      </MuiThemeProvider>
+    </TodoListProvider>
+  );
 }
